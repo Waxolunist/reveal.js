@@ -1,166 +1,189 @@
-@
-import 'dax';
-.sympany {@
-  include dax - font;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {@
-    include dax - font;
-  }
-  .slides > section,
-    .slides > section > section {
-      height: 100 % ;
-    }
-    .slides.fit {
-      display: flex!important;
-      flex - direction: column;
-      .imagerow {
-        position: relative;
-        figure {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-        }
-        img {
-          width: auto;
-        }
-      }
-    }
-    .imagerow {
-      height: 100 % ;
-      display: flex;
-      justify - content: center;
-      align - items: center; & .vertical {
-        flex - direction: column;
-        align - items: flex - start;
-      }
-      figure {
-        max - height: 100 % ; & : first - child: nth - last - child(2), & : first - child: nth - last - child(2) ~figure {
-          width: 50 % ;
-        } & : first - child: nth - last - child(3), & : first - child: nth - last - child(3) ~figure {
-          width: 33 % ;
-        }
-      }
-      img {
-        width: 100 % ;
-      } & .baseline - caption figure {
-        height: 100 % ;
-        display: flex;
-        flex - direction: column;
-        justify - content: flex - end; & : before,
-        & : after {
-          content: '';
-          flex: 1;
-        }
-        figcaption {
-          order: 4;
-        }
-      }
-    }
-    .no - border {
-      border: none;
-    }
-    .no - shadow {
-      box - shadow: none;
-    }
-    .border - radius {
-      border - radius: 10 px;
-    }
-    .dark - bg {
-      color: white;
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        color: white;
-      }
-    }
-    /*
-  
-     
+/* global module:false */
+module.exports = function (grunt) {
+  var port = grunt.option('port') || 8000;
+  var base = grunt.option('base') || '.';
 
-    .slides > section {
-      height: 100%;
-    }
-    .no-border {
-      border: none;
-    }
-    .slides > section.top-aligned,
-    .slides > section > section.top-aligned,
-    .top-aligned {
-      padding-top: 0;
-      img {
-        margin-top: 0;
+  // Project configuration
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    meta: {
+      banner: '/*!\n' +
+        ' * reveal.js <%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd, HH:MM") %>)\n' +
+        ' * http://lab.hakim.se/reveal-js\n' +
+        ' * MIT licensed\n' +
+        ' *\n' +
+        ' * Copyright (C) 2015 Hakim El Hattab, http://hakim.se\n' +
+        ' */'
+    },
+
+    qunit: {
+      files: ['test/*.html']
+    },
+
+    uglify: {
+      options: {
+        banner: '<%= meta.banner %>\n'
+      },
+      build: {
+        src: 'js/reveal.js',
+        dest: 'js/reveal.min.js'
       }
-    }
-    .imagewrapper img {
-      width: 100%;
-      //Safari hack for keeping aspect ratio
-      max-height: 10000px;
-    }
-    .imagerow {
-      display: flex;
-      justify-content: center;
-      img {
-        width: 100%;
+    },
+
+    sass: {
+      core: {
+        files: {
+          'css/reveal.css': 'css/reveal.scss',
+        }
+      },
+      themes: {
+        files: [
+          {
+            expand: true,
+            cwd: 'css/theme/source',
+            src: ['*.scss'],
+            dest: 'css/theme',
+            ext: '.css'
+					}
+				]
       }
-    }
-    .center {
-      justify-content: center;
-      text-align: center;
-    }
-    .roundedcorners {
-      border-radius: 10px;
-    }
-    .fullscreen {
-      width: 100%;
-      height: 100%;
-      img, figure {
-        width: 100%;
-        height: auto;
+    },
+
+    autoprefixer: {
+      dist: {
+        src: 'css/reveal.css'
       }
-    }
-    .halfwidth {
-      width: 50%;
-    }
-    .fit {
-      display: flex !important;
-      flex-direction: column;
-      .imagerow {
-        display: flex;
-        overflow: hidden;
-        .imagecell {
-          display: flex;
-          img {
-            max-width: none;
-            max-height: none;
-            width: calc(100% - 30px);
-            margin: 15px;
-          }
+    },
+
+    cssmin: {
+      compress: {
+        files: {
+          'css/reveal.min.css': ['css/reveal.css']
         }
       }
-    }
-    .slides > section.fit {
-      max-height: 100%;
-    }
-    .vertical-center {
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .centered {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    },
+
+    imagemin: {
+      dynamic: { // Another target
+        files: [{
+          expand: true, // Enable dynamic expansion
+          cwd: 'img/', // Src matches are relative to this path
+          src: ['**/*.{png,jpg,gif}'], // Actual patterns to match
+          dest: 'img_min/' // Destination path prefix
+        }]
+      }
+    },
+
+    jshint: {
+      options: {
+        curly: false,
+        eqeqeq: true,
+        immed: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: true,
+        eqnull: true,
+        browser: true,
+        expr: true,
+        globals: {
+          head: false,
+          module: false,
+          console: false,
+          unescape: false,
+          define: false,
+          exports: false
+        }
+      },
+      files: ['Gruntfile.js', 'js/reveal.js']
+    },
+
+    connect: {
+      server: {
+        options: {
+          port: port,
+          base: base,
+          livereload: true,
+          open: true
+        }
+      }
+    },
+
+    zip: {
+      'reveal-js-presentation.zip': [
+				'index.html',
+				'css/**',
+				'js/**',
+				'lib/**',
+				'images/**',
+				'plugin/**'
+			]
+    },
+
+    watch: {
+      options: {
+        livereload: true
+      },
+      js: {
+        files: ['Gruntfile.js', 'js/reveal.js'],
+        tasks: 'js'
+      },
+      theme: {
+        files: ['css/theme/source/*.scss', 'css/theme/template/*.scss'],
+        tasks: 'css-themes'
+      },
+      css: {
+        files: ['css/reveal.scss'],
+        tasks: 'css-core'
+      },
+      html: {
+        files: ['index.html']
+      },
+      img: {
+        files: ['img/*.{png,jpg,gif}'],
+        tasks: 'img'
       }
     }
-    */
-}
+
+  });
+
+  // Dependencies
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-zip');
+
+  // Default task
+  grunt.registerTask('default', ['css', 'js', 'img']);
+
+  // JS task
+  grunt.registerTask('js', ['jshint', 'uglify', 'qunit']);
+
+  // Theme CSS
+  grunt.registerTask('css-themes', ['sass:themes']);
+
+  // Core framework CSS
+  grunt.registerTask('css-core', ['sass:core', 'autoprefixer', 'cssmin']);
+
+  grunt.registerTask('img', ['imagemin']);
+
+  // All CSS
+  grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin']);
+
+  // Package presentation to archive
+  grunt.registerTask('package', ['default', 'zip']);
+
+  // Serve presentation locally
+  grunt.registerTask('serve', ['connect', 'watch']);
+
+  // Run tests
+  grunt.registerTask('test', ['jshint', 'qunit']);
+
+};
