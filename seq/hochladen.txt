@@ -1,0 +1,27 @@
+participant Kunde as KUN
+participant Backend as BEN
+participant JMS as JMS
+participant ImageConverter as IMC
+participant Sachbearbeiter as SBE
+participant AdminUI as ADM
+
+KUN->KUN: Fotografieren
+KUN->BEN: Hochladen
+BEN->BEN: Speichern
+BEN->JMS: Command
+BEN->KUN: Success
+note left of KUN
+  Prozess
+  abgeschlossen
+end note
+opt async
+    JMS->IMC: Command
+    IMC->IMC: Convert
+    SBE->ADM: Visuelle Kontrolle
+    SBE->ADM: Freigabe
+    note right of SBE
+       Ausdrucken
+       Automatisierung noch
+       ausstehend
+    end note
+end
