@@ -20,8 +20,6 @@ opt async
     SBE->ADM: Visuelle Kontrolle
     SBE->ADM: Freigabe
     note right of SBE
-       Ausdrucken
-       Automatisierung noch
-       ausstehend
+       SOA -> FileSystem -> OCC
     end note
 end
