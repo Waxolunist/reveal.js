@@ -51,15 +51,24 @@ module.exports = function (grunt) {
     },
 
     autoprefixer: {
-      dist: {
-        src: 'css/reveal.css'
+      default: {
+        files: [
+          {
+            expand: true,
+            cwd: 'css/',
+            src: ['*.css', '!*.min.css'],
+            dest: 'css/',
+            ext: '.css'
+					}
+				]
       }
     },
 
     cssmin: {
       compress: {
         files: {
-          'css/reveal.min.css': ['css/reveal.css']
+          'css/reveal.min.css': ['css/reveal.css'],
+          'css/sympany.min.css': ['css/sympany.css']
         }
       }
     },

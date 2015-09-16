@@ -26,8 +26,15 @@
   .sympany .slides > section > section {
     height: 100%; }
   .sympany .slides .fit {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
     display: flex !important;
-    flex-direction: column; }
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; }
     .sympany .slides .fit .imagerow {
       position: relative;
       height: 100%; }
@@ -40,26 +47,58 @@
       .sympany .slides .fit .imagerow img {
         width: auto; }
   .sympany .imagerow {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: stretch; }
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch; }
     .sympany .imagerow.vertical {
-      flex-direction: column;
-      align-items: flex-start;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+          -ms-flex-align: start;
+              align-items: flex-start;
       height: auto; }
     .sympany .imagerow figure {
       max-height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end; }
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: end;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end; }
       .sympany .imagerow figure:only-child {
         display: block; }
       .sympany .imagerow figure:before,
       .sympany .imagerow figure:after {
         content: '';
-        flex: 1; }
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+            -ms-flex: 1;
+                flex: 1; }
       .sympany .imagerow figure figcaption {
-        order: 4; }
+        -webkit-box-ordinal-group: 5;
+        -webkit-order: 4;
+            -ms-flex-order: 4;
+                order: 4; }
       .sympany .imagerow figure:first-child:nth-last-child(2),
       .sympany .imagerow figure:first-child:nth-last-child(2) ~ figure {
         width: 50%; }
@@ -67,7 +106,8 @@
       .sympany .imagerow figure:first-child:nth-last-child(3) ~ figure {
         width: 33%; }
     .sympany .imagerow img {
-      width: 100%; }
+      width: 100%;
+      max-height: none; }
   .sympany .no-border {
     border: none; }
   .sympany .no-shadow {
@@ -75,8 +115,15 @@
   .sympany .border-radius {
     border-radius: 10px; }
   .sympany figure.figcaption-horizontal {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row; }
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row; }
     .sympany figure.figcaption-horizontal figcaption {
       margin-top: 15px; }
   .sympany .dark-bg {
@@ -101,7 +148,9 @@
       font-family: Comic Sans, Comic Sans MS, cursive;
       font-style: italic;
       display: inline-block;
-      transform: rotate(-20deg) translate(-25px, -45px); }
+      -webkit-transform: rotate(-20deg) translate(-25px, -45px);
+          -ms-transform: rotate(-20deg) translate(-25px, -45px);
+              transform: rotate(-20deg) translate(-25px, -45px); }
   @media print {
     .sympany .no-print,
     .sympany .slides section.no-print {
