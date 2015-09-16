@@ -14,88 +14,7 @@
   font-style: normal; }
 
 .sympany {
-  font-family: DaxRegular, "Helvetica Neue", Helvetica;
-  /*
-  
-   
-
-  .slides > section {
-    height: 100%;
-  }
-  .no-border {
-    border: none;
-  }
-  .slides > section.top-aligned,
-  .slides > section > section.top-aligned,
-  .top-aligned {
-    padding-top: 0;
-    img {
-      margin-top: 0;
-    }
-  }
-  .imagewrapper img {
-    width: 100%;
-    //Safari hack for keeping aspect ratio
-    max-height: 10000px;
-  }
-  .imagerow {
-    display: flex;
-    justify-content: center;
-    img {
-      width: 100%;
-    }
-  }
-  .center {
-    justify-content: center;
-    text-align: center;
-  }
-  .roundedcorners {
-    border-radius: 10px;
-  }
-  .fullscreen {
-    width: 100%;
-    height: 100%;
-    img, figure {
-      width: 100%;
-      height: auto;
-    }
-  }
-  .halfwidth {
-    width: 50%;
-  }
-  .fit {
-    display: flex !important;
-    flex-direction: column;
-    .imagerow {
-      display: flex;
-      overflow: hidden;
-      .imagecell {
-        display: flex;
-        img {
-          max-width: none;
-          max-height: none;
-          width: calc(100% - 30px);
-          margin: 15px;
-        }
-      }
-    }
-  }
-  .slides > section.fit {
-    max-height: 100%;
-  }
-  .vertical-center {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .centered {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  */ }
+  font-family: DaxRegular, "Helvetica Neue", Helvetica; }
   .sympany h1, .sympany h2, .sympany h3, .sympany h4, .sympany h5, .sympany h6 {
     font-family: DaxRegular, "Helvetica Neue", Helvetica; }
   .sympany .slides > section, .sympany .slides > section > section {
@@ -169,3 +88,17 @@
       font-style: italic;
       display: inline-block;
       transform: rotate(-20deg) translate(-25px, -45px); }
+  @media print {
+    .sympany .no-print, .sympany .slides section.no-print {
+      display: none !important; }
+    .sympany .fit .imagerow {
+      min-height: 550px; }
+    .sympany .imagerow {
+      overflow: hidden; }
+    .sympany .imagerow figure:only-child {
+      max-height: 550px;
+      min-height: 550px;
+      overflow: hidden; }
+    .sympany .no-header .imagerow figure:only-child {
+      max-height: 710px;
+      min-height: 710px; } }
