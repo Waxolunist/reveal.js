@@ -18,6 +18,7 @@
     flex-direction: column;
     .imagerow {
       position: relative;
+      height: 100%;
       figure {
         position: absolute;
         top: 0;
@@ -31,16 +32,30 @@
     }
   }
   .imagerow {
-    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     &.vertical {
       flex-direction: column;
       align-items: flex-start;
+      height: auto;
     }
     figure {
       max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      &:only-child {
+        display: block;
+      }
+      &:before,
+      &:after {
+        content: '';
+        flex: 1;
+      }
+      figcaption {
+        order: 4;
+      }
       &:first-child:nth-last-child(2),
       &:first-child:nth-last-child(2) ~ figure {
         width: 50%;
@@ -53,20 +68,6 @@
     img {
       width: 100%;
     }
-    &.baseline-caption figure {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      &:before,
-      &:after {
-        content: '';
-        flex: 1;
-      }
-      figcaption {
-        order: 4;
-      }
-    }
   }
   .no-border {
     border: none;
@@ -77,6 +78,13 @@
   .border-radius {
     border-radius: 10px;
   }
+  figure.figcaption-horizontal {
+    display: flex;
+    flex-direction: row;
+    & figcaption {
+      margin-top: 15px;
+    }
+  }
   .dark-bg {
     color: white;
     h1,
@@ -86,6 +94,24 @@
     h5,
     h6 {
       color: white;
+    }
+  }
+  li.strike-20.visible:not(.current-fragment) {
+    display: none;
+  }
+  span.strike-20 {
+    color: red;
+    text-decoration: line-through;
+    & > span {
+      color: black;
+    }
+    & ~ span.next {
+      color: red;
+      text-decoration: none;
+      font-family: Comic Sans, Comic Sans MS, cursive;
+      font-style: italic;
+      display: inline-block;
+      transform: rotate(-20deg) translate(-25px, -45px);
     }
   }
   /*
