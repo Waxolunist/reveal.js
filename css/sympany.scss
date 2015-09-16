@@ -1,4 +1,5 @@
 @import 'dax';
+@import 'bubble';
 .sympany {
   @include dax-font;
   h1,
@@ -109,7 +110,7 @@
     & ~ span.next {
       color: red;
       text-decoration: none;
-      font-family: Comic Sans, Comic Sans MS, cursive;
+      font-family: Comic Sans, Comic Sans MS, Bubblegum Sans, cursive;
       font-style: italic;
       display: inline-block;
       transform: rotate(-20deg) translate(-25px, -45px);
